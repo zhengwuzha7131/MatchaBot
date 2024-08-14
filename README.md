@@ -1,2 +1,1 @@
-# MatchaBot
-Discord Matcha Bot!
+discord matcha bot
