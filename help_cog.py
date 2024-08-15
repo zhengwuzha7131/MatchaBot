@@ -8,7 +8,7 @@ class help_cog(commands.Cog):
         self.help_message = """
         
         ```
-        Commands:
+        Available ommands:
         .help - Displays this message
         .hello - Greets the user
         .join - Joins the voice channel

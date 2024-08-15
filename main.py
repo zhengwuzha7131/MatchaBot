@@ -7,6 +7,8 @@ from apikeys import * #This file will not be accessible for the public
 from music_cog import music_cog
 from help_cog import help_cog
 
+#intents
+
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='.', intents=intents)
 

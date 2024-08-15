@@ -16,6 +16,7 @@ class music_cog(commands.Cog):
         self.YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
         self.FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
         
+        
         self.vc = None
         
     def search_yt(self, item):
