@@ -7,14 +7,13 @@ class help_cog(commands.Cog):
         self.help_message = """
 ```
 Available commands:
-.help - Displays this message
-.hello - Greets the user
-.join - Joins the voice channel
-.leave - Leaves the voice channel
-.play - Plays a song
-.pause - Pauses the song
-.resume - Resumes the song
-.stop - Stops the song
+.hello - Greets the user    
+.gpt <message> - Ask a bot a question (Currently it does not have memory)
+.play <song> - Play the selected song from YouTube
+.pause - Pause the current song
+.resume - Resume the current song
+.remove <index> - Remove the ith index from the queue
+.queue - Displays the current queue
 ```
         """
 
