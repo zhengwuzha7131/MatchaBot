@@ -7,6 +7,7 @@ import os
 
 from music_cog import music_cog
 from help_cog import help_cog
+from general_cog import general_cog
 
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -22,18 +23,8 @@ client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 async def on_ready():
     await bot.add_cog(music_cog(bot))
     await bot.add_cog(help_cog(bot))
+    await bot.add_cog(general_cog(bot))
     print("Bot is ready and laoded with cog")
-
-@bot.event
-async def on_member_join(member):
-    channel = bot.get_channel(1269124408786686076)
-    await channel.send("Hello! Welcome to the server and we hope you have a matcha time here! :green_heart:")
-    
-#Commands
-    
-@bot.command()
-async def hello(ctx):
-    await ctx.send("Hello! I am Matcha for all the Matcha lovers out there! :green_heart:")
     
 #ChatGPT Configuration
 
@@ -54,5 +45,7 @@ async def ask_chatgpt(message):
 async def gpt(ctx, *, query):
     response = await ask_chatgpt(query)
     await ctx.send(response)
+    
+ 
 
 bot.run(os.environ.get("DISCORD_TOKEN"))
