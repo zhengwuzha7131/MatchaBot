@@ -12,7 +12,7 @@ from general_cog import general_cog
 from openai import OpenAI
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv() #To Load the API Keys and Tokens from .env file as I don't want to get leaked :D
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='.', intents=intents, help_command=None)
