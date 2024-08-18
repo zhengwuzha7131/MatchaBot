@@ -8,16 +8,6 @@ class general_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-    @commands.Cog.listener()
-    async def on_member_join(self, member):
-        channel = self.bot.get_channel(1269124408786686076)
-        await channel.send("Hello! Welcome to the server and we hope you have a matcha time here! :green_heart:")
-        
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.content == "matcha":
-            await message.channel.send("Matcha is love! :green_heart:")
-        
     @commands.command()
     async def hello(self, ctx):
         await ctx.send("Hello! I am Matcha for all the Matcha lovers out there! :green_heart:")
