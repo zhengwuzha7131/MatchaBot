@@ -54,7 +54,9 @@ class music_cog(commands.Cog):
                         
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: asyncio.run_coroutine_threadsafe(self.play_next(ctx), self.bot.loop))
             
-            await ctx.send(f"Now playing: {self.music_queue[0][0]['title']}")
+            embed = discord.Embed(title="Now Playing", url=m_url, description=f"Now playing: {self.music_queue[0][0]['title']}", color=0x74A12E)
+            
+            await ctx.send(embed=embed)
 
         else:
             self.is_playing = False
