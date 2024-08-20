@@ -74,10 +74,11 @@ async def gpt(ctx, *, query):
         role = "assistant" if msg.author == bot.user else "user"
 
         username = sanitize_username(msg.author.name) if role == "user" else None
+        content = re.sub(r'^\.gpt\s+', '', msg.content)
         
         message_info = {
             "role": role,
-            "content": msg.content
+            "content": content
         }
         
         if role == "user":
