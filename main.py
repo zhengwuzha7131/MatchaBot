@@ -4,10 +4,12 @@ from discord import FFmpegPCMAudio
 import requests
 import json
 import os
+import asyncio
 
 from music_cog import music_cog
 from help_cog import help_cog
 from general_cog import general_cog
+from events_cog import events_cog
 
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -24,16 +26,21 @@ async def on_ready():
     await bot.add_cog(music_cog(bot))
     await bot.add_cog(help_cog(bot))
     await bot.add_cog(general_cog(bot))
+    await bot.add_cog(events_cog(bot))
     print("Bot is ready and laoded with cog")
     
 #ChatGPT Configuration
 
 async def ask_chatgpt(message):
+
+    await message.channel.typing()
+    
     try:
         chat_completion = client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": message}]
         )
+
         response_message = chat_completion.choices[0].message.content
         return response_message
     except Exception as e:
