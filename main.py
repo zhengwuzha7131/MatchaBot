@@ -63,7 +63,7 @@ async def gpt(ctx, *, query):
         "content": query
     })
 
-    previous_messages = await ctx.channel.history(limit=10).flatten()
+    previous_messages = await ctx.channel.history(limit=10)
     previous_messages.reverse()
     
     for msg in previous_messages:
