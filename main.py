@@ -5,6 +5,7 @@ import requests
 import json
 import os
 import asyncio
+import re
 
 from music_cog import music_cog
 from help_cog import help_cog
@@ -31,12 +32,17 @@ async def on_ready():
     
 #ChatGPT Configuration
 
+conversation_history = [{
+    "role": "system",
+    "content": "You are a helpful assistant and you will be a friendly chatbot."
+}]
+
 async def ask_chatgpt(message):
     
     try:
         chat_completion = client.chat.completions.create(
             model="gpt-4",
-            messages=[{"role": "user", "content": message}]
+            messages= conversation_history
         )
 
         response_message = chat_completion.choices[0].message.content
@@ -52,14 +58,38 @@ async def ask_chatgpt(message):
 async def gpt(ctx, *, query):
     await ctx.typing()
     
-    response = await ask_chatgpt(query)
+    conversation_history.append({
+        "role": "user",
+        "content": query
+    })
 
+    previous_messages = await ctx.channel.history(limit=10).flatten()
+    previous_messages.reverse()
+    
+    for msg in previous_messages:
+        role = "assistant" if msg.author == bot.user else "user"
+
+        username = sanitize_username(msg.author.name) if role == "user" else None
+        
+        message_info = {
+            "role": role,
+            "content": msg.content
+        }
+        
+        if role == "user":
+            message_info["name"] = username
+
+        conversation_history.append(message_info)
+
+    response = await ask_chatgpt(query)
+    
     CHUNKSIZELIMIT = 2000
-    
+        
     for i in range(0, len(response), CHUNKSIZELIMIT):
-        chunk = response[i: i+CHUNKSIZELIMIT]
+        chunk = response[i:i+CHUNKSIZELIMIT]
         await ctx.send(chunk)
-    
- 
+
+def sanitize_username(username):
+    return re.sub(r'\W+', '_', username)
 
 bot.run(os.environ.get("DISCORD_TOKEN"))
