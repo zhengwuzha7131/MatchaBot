@@ -42,6 +42,11 @@ async def ask_chatgpt(message):
         )
 
         response_message = chat_completion.choices[0].message.content
+        CHUNKSIZELIMIT = 2000
+        
+        for i in range(0, len(response_message), CHUNKSIZELIMIT):
+            chunk = response_message[i:i+CHUNKSIZELIMIT]
+        
         return response_message
     except Exception as e:
         print(f"Error: {str(e)}")
