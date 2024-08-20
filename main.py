@@ -45,9 +45,9 @@ async def ask_chatgpt(message):
         CHUNKSIZELIMIT = 2000
         
         for i in range(0, len(response_message), CHUNKSIZELIMIT):
-            chunk = response_message[i:i+CHUNKSIZELIMIT]
+            chunk = response_message[i: i+CHUNKSIZELIMIT]
+            await message.channel.send(chunk)
         
-        return response_message
     except Exception as e:
         print(f"Error: {str(e)}")
         return "Sorry, I can't respond at the moment."
