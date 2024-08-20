@@ -32,8 +32,6 @@ async def on_ready():
 #ChatGPT Configuration
 
 async def ask_chatgpt(message):
-
-    await message.channel.typing()
     
     try:
         chat_completion = client.chat.completions.create(
@@ -42,11 +40,8 @@ async def ask_chatgpt(message):
         )
 
         response_message = chat_completion.choices[0].message.content
-        CHUNKSIZELIMIT = 2000
-        
-        for i in range(0, len(response_message), CHUNKSIZELIMIT):
-            chunk = response_message[i: i+CHUNKSIZELIMIT]
-            await message.channel.send(chunk)
+            
+        return response_message
         
     except Exception as e:
         print(f"Error: {str(e)}")
@@ -55,8 +50,15 @@ async def ask_chatgpt(message):
 # Command to talk to ChatGPT, the usage will be .gpt <message>
 @bot.command()
 async def gpt(ctx, *, query):
+    await ctx.typing()
+    
     response = await ask_chatgpt(query)
-    await ctx.send(response)
+
+    CHUNKSIZELIMIT = 2000
+    
+    for i in range(0, len(response), CHUNKSIZELIMIT):
+        chunk = response[i: i+CHUNKSIZELIMIT]
+        await ctx.send(chunk)
     
  
 
