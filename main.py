@@ -41,7 +41,7 @@ async def ask_chatgpt(message):
     
     try:
         chat_completion = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o",
             messages= conversation_history
         )
 
