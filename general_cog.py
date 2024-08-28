@@ -33,3 +33,14 @@ class general_cog(commands.Cog):
     async def ban_error(ctx, error):
         if isinstance(error, MissingPermissions):
             await ctx.send("You do not have permissions to ban members!")
+            
+    @commands.command()
+    @has_permissions(manage_messages=True)
+    async def purge(ctx, *args):
+        deleted = ctx.channel.purge(limit=100)
+        await ctx.send(f"Purged {len(deleted)} messages (I can at most delete 100 messages)")
+        
+    @purge.error
+    async def purge_error(ctx, error):
+        if isinstance(error, MissingPermissions):
+            await ctx.send("You do not have permissions to delete messages!")
