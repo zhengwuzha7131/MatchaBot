@@ -36,9 +36,11 @@ class general_cog(commands.Cog):
             
     @commands.command()
     @has_permissions(manage_messages=True)
-    async def purge(ctx, *args):
-        deleted = ctx.channel.purge(limit=100)
+    async def purge(self, ctx, limit: int = 100):
+        limit = min(limit, 100)
+        deleted = await ctx.channel.purge(limit=limit)
         await ctx.send(f"Purged {len(deleted)} messages (I can at most delete 100 messages)")
+
         
     @purge.error
     async def purge_error(ctx, error):
