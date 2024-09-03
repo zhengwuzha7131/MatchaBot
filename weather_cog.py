@@ -13,7 +13,7 @@ class weather_cog(commands.Cog):
         self.bot = bot
         
     @commands.command()
-    async def weather(ctx, *, city: str):
+    async def weather(self, ctx, *, city: str):
         city_name = city
         complete_url = os.environ.get('BASE_URL') + "appid=" + os.environ.get('WEATHER_API_KEY') + "&q=" + city_name
         response = requests.get(complete_url)
