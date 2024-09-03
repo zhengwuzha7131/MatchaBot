@@ -11,6 +11,7 @@ from music_cog import music_cog
 from help_cog import help_cog
 from general_cog import general_cog
 from events_cog import events_cog
+from weather_cog import weather_cog
 
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -28,6 +29,7 @@ async def on_ready():
     await bot.add_cog(help_cog(bot))
     await bot.add_cog(general_cog(bot))
     await bot.add_cog(events_cog(bot))
+    await bot.add_cog(weather_cog(bot))
     print("Bot is ready and laoded with cog")
     
 #ChatGPT Configuration
