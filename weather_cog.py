@@ -33,8 +33,8 @@ class weather_cog(commands.Cog):
                 weather_description = weather[0]["description"]
 
             embed = discord.Embed(title=f"Weather in {city_name}", color=0x00ff00, timestamp=ctx.message.created_at)
-            embed.add_field(name="Temperature", value=f"{temperatureF}K", inline=False)
-            embed.add_field(name="Feels Like", value=f"{feels_likeF}K", inline=False)
+            embed.add_field(name="Temperature", value=f"{temperatureF}F", inline=False)
+            embed.add_field(name="Feels Like", value=f"{feels_likeF}F", inline=False)
             embed.add_field(name="Pressure", value=f"{pressure}hPa", inline=False)
             embed.add_field(name="Humidity", value=f"{humidity}%", inline=False)
             embed.add_field(name="Weather Description", value=f"{weather_description}", inline=False)
