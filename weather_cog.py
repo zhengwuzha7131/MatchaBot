@@ -19,20 +19,22 @@ class weather_cog(commands.Cog):
         response = requests.get(complete_url)
         result = response.json()
         channel = ctx.message.channel
-        
+
         if result["cod"] != "404":
             async with channel.typing():
                 main = result["main"]
-                temperature = main["temp"]
-                feels_like = main["feels_like"]
+                temperatureK = main["temp"]
+                temperatureF = str(round(((temperatureK - 273.15) * 1.8) + 32))
+                feels_likeK = main["feels_like"]
+                feels_likeF = str(round(((feels_likeK - 273.15) * 1.8) + 32))
                 pressure = main["pressure"]
                 humidity = main["humidity"]
                 weather = result["weather"]
-                weather_description = weather[0]["description"]      
-                
+                weather_description = weather[0]["description"]
+
             embed = discord.Embed(title=f"Weather in {city_name}", color=0x00ff00, timestamp=ctx.message.created_at)
-            embed.add_field(name="Temperature", value=f"{temperature}K", inline=False)
-            embed.add_field(name="Feels Like", value=f"{feels_like}K", inline=False)
+            embed.add_field(name="Temperature", value=f"{temperatureF}K", inline=False)
+            embed.add_field(name="Feels Like", value=f"{feels_likeF}K", inline=False)
             embed.add_field(name="Pressure", value=f"{pressure}hPa", inline=False)
             embed.add_field(name="Humidity", value=f"{humidity}%", inline=False)
             embed.add_field(name="Weather Description", value=f"{weather_description}", inline=False)
@@ -41,4 +43,3 @@ class weather_cog(commands.Cog):
             await channel.send(embed=embed)
         else:
             await channel.send("City not found!")
-        
