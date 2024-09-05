@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 
+
 #Commands to take care of a discord server
 
 class general_cog(commands.Cog):
@@ -46,3 +47,7 @@ class general_cog(commands.Cog):
     async def purge_error(ctx, error):
         if isinstance(error, MissingPermissions):
             await ctx.send("You do not have permissions to delete messages!")
+            
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send(f"Pong! {round(self.bot.latency * 1000)}ms")
