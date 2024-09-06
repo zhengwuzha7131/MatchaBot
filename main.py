@@ -31,7 +31,7 @@ async def on_ready():
     await bot.add_cog(general_cog(bot))
     await bot.add_cog(events_cog(bot))
     await bot.add_cog(weather_cog(bot))
-    await bot.add_cog(date_cog.py(bot))
+    await bot.add_cog(date_cog(bot))
     print("Bot is ready and laoded with cog")
     
 #ChatGPT Configuration
